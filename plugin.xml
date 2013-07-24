@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin 
+    xmlns="http://www.phonegap.com/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    id="com.megster.cordova.TwitterPlugin" 
+    version="0.0.0">
+    
+    <name>SMS Composer</name>
+    
+    <!-- TODO js-module -->
+    <asset src="www/TwitterPlugin.js" target="js/TwitterPlugin.js"/>
+    
+    <platform name="ios">
+                
+        <config-file target="config.xml" parent="plugins">
+            <plugin name="TwitterPlugin" value="TwitterPlugin" />
+        </config-file>
+
+        <header-file src="src/ios/TwitterPlugin.h" target-dir="TwitterPlugin" />
+        <source-file src="src/ios/TwitterPlugin.m" target-dir="TwitterPlugin" />
+                
+        <!-- frameworks -->
+        <framework src="Twitter.framework" />
+        <framework src="Accounts.framework" />
+        
+    </platform>
+</plugin>
