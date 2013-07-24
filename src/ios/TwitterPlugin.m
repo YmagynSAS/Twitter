@@ -6,7 +6,7 @@
 //
 
     #import "TwitterPlugin.h"
-    #import <Cordova/JSONKit.h>
+    #import <Cordova/CDVJSON.h>
 	#import <Cordova/CDVAvailability.h>
 
 #define TWITTER_URL @"http://api.twitter.com/1/"
@@ -19,9 +19,6 @@
     BOOL twitterSDKAvailable = tweetViewController != nil;
 
     // http://brianistech.wordpress.com/2011/10/13/ios-5-twitter-integration/
-    if(tweetViewController != nil){
-        [tweetViewController release];
-    }
 	
 	
     
@@ -61,7 +58,6 @@
         if([imageAttach hasPrefix:@"http://"]){
             UIImage *img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageAttach]]];
             ok = [tweetViewController addImage:img];
-            [img release];
         }
         else{
             ok = [tweetViewController addImage:[UIImage imageNamed:imageAttach]];
@@ -111,8 +107,6 @@
         
         [super.viewController presentModalViewController:tweetViewController animated:YES];
     }
-    
-    [tweetViewController release];
 }
 
 - (void) getPublicTimeline:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
@@ -125,9 +119,8 @@
         
         if([urlResponse statusCode] == 200) {
             NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-            NSDictionary *dict = [dataString cdvjk_objectFromJSONString];
+            NSDictionary *dict = [dataString JSONObject];
             jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict] toSuccessCallbackString:callbackId];
-            [dataString release];
 		}
 		else{
             jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
@@ -137,8 +130,6 @@
         
 		[self performCallbackOnMainThreadforJS:jsResponse];        
 	}];
-    
-    [postRequest release];
 }
 
 - (void) getTwitterUsername:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
@@ -158,8 +149,6 @@
             [self performCallbackOnMainThreadforJS:jsResponse];
         }
     }];
-    
-    [accountStore release];
 
 }
 
@@ -181,9 +170,8 @@
                     NSString *jsResponse;
                     if([urlResponse statusCode] == 200) {
                         NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-                        NSDictionary *dict = [dataString cdvjk_objectFromJSONString];
+                        NSDictionary *dict = [dataString JSONObject];
                         jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict] toSuccessCallbackString:callbackId];
-                        [dataString release];
                     }
                     else{
                         jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
@@ -193,7 +181,6 @@
                     
                     [self performCallbackOnMainThreadforJS:jsResponse];        
                 }];
-                [postRequest release];
             }
             else{
                 NSString *jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
@@ -209,8 +196,6 @@
             [self performCallbackOnMainThreadforJS:jsResponse];
         }
     }];
-
-    [accountStore release];
 }
 
 
@@ -258,9 +243,8 @@
                     NSString *jsResponse;
                     if([urlResponse statusCode] == 200) {
                         NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-                        NSDictionary *dict = [dataString cdvjk_objectFromJSONString];
+                        NSDictionary *dict = [dataString JSONObject];
                         jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict] toSuccessCallbackString:callbackId];
-                        [dataString release];
                     }
                     else{
                         jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
@@ -270,7 +254,6 @@
                     
                     [self performCallbackOnMainThreadforJS:jsResponse];        
                 }];
-                [request release];
             }
             else{
                 NSString *jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
@@ -286,8 +269,6 @@
             [self performCallbackOnMainThreadforJS:jsResponse];
         }
     }];
-    
-    [accountStore release];
 }
 
 
