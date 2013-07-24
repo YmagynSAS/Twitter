@@ -13,9 +13,7 @@
     <platform name="ios">
                 
         <config-file target="config.xml" parent="plugins">
-            <feature name="TwitterPlugin">
-                <param name="ios-package" value="TwitterPlugin">
-            </feature>
+            <plugin name="TwitterPlugin" value="TwitterPlugin" />
         </config-file>
 
         <header-file src="src/ios/TwitterPlugin.h" target-dir="TwitterPlugin" />
