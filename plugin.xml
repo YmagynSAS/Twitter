@@ -9,11 +9,17 @@
     
     <!-- TODO js-module -->
     <asset src="www/TwitterPlugin.js" target="js/TwitterPlugin.js"/>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
     
     <platform name="ios">
-                
-        <config-file target="config.xml" parent="plugins">
-            <plugin name="TwitterPlugin" value="TwitterPlugin" />
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="TwitterPlugin">
+                <param name="ios-package" value="TwitterPlugin"/>
+            </feature>
         </config-file>
 
         <header-file src="src/ios/TwitterPlugin.h" target-dir="TwitterPlugin" />
