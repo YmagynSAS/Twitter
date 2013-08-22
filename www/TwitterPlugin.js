@@ -42,7 +42,7 @@ Twitter.prototype.isTwitterSetup = function(response){
  *         function (error) { console.log("tweet failure: " + error); }, 
  *         "Text, Image, URL", 
  *         {
- *             urlAttach:"http://m.youtube.com/#/watch?v=obx2VOtx0qU", 
+ *             urlAttach:"http://youtu.be/Ot-rPGv85u4", 
  *             imageAttach:"http://i.ytimg.com/vi/obx2VOtx0qU/hqdefault.jpg?w=320&h=192&sigh=QD3HYoJj9dtiytpCSXhkaq1oG8M"
  *         }
  * );
@@ -52,6 +52,7 @@ Twitter.prototype.composeTweet = function(success, failure, tweetText, options){
     options.text = tweetText;
     cordova.exec(success, failure, "TwitterPlugin", "composeTweet", [options]);
 };
+
 /**
  * Gets Tweets from Twitter Timeline
  * @param {Function} success callback

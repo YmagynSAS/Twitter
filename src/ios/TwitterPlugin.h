@@ -15,19 +15,22 @@
 @interface TwitterPlugin : CDVPlugin{
 }
 
-- (void) isTwitterAvailable:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+
+- (void) isTwitterAvailable:(CDVInvokedUrlCommand*)command;
+
+//- (void) isTwitterAvailable:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
     
-- (void) isTwitterSetup:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) isTwitterSetup:(CDVInvokedUrlCommand*)command;
 
-- (void) composeTweet:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) composeTweet:(CDVInvokedUrlCommand*)command;
 
-- (void) getPublicTimeline:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) getPublicTimeline:(CDVInvokedUrlCommand*)command;
 
-- (void) getTwitterUsername:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) getTwitterUsername:(CDVInvokedUrlCommand*)command;
 
-- (void) getMentions:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) getMentions:(CDVInvokedUrlCommand*)command;
 
-- (void) getTWRequest:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) getTWRequest:(CDVInvokedUrlCommand*)command;
 
 - (void) performCallbackOnMainThreadforJS:(NSString*)js;
 

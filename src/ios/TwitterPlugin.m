@@ -13,28 +13,23 @@
 
 @implementation TwitterPlugin
 
-- (void) isTwitterAvailable:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
-    NSString *callbackId = [arguments objectAtIndex:0];
+- (void) isTwitterAvailable:(CDVInvokedUrlCommand*)command {
     TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];
     BOOL twitterSDKAvailable = tweetViewController != nil;
 
-    // http://brianistech.wordpress.com/2011/10/13/ios-5-twitter-integration/
-	
-	
-    
-    [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:twitterSDKAvailable ? 1 : 0] toSuccessCallbackString:callbackId]];
+    [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:twitterSDKAvailable ? 1 : 0] toSuccessCallbackString:command.callbackId]];
 }
 
-- (void) isTwitterSetup:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
-    NSString *callbackId = [arguments objectAtIndex:0];
+- (void) isTwitterSetup:(CDVInvokedUrlCommand*)command {
     BOOL canTweet = [TWTweetComposeViewController canSendTweet];
 
-    [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:canTweet ? 1 : 0] toSuccessCallbackString:callbackId]];
+    [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:canTweet ? 1 : 0] toSuccessCallbackString:command.callbackId]];
 }
 
-- (void) composeTweet:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
+- (void) composeTweet:(CDVInvokedUrlCommand*)command {
     // arguments: callback, tweet text, url attachment, image attachment
-    NSString *callbackId = [arguments objectAtIndex:0];
+    NSMutableDictionary* options = (NSMutableDictionary*)[command argumentAtIndex:0];
+    NSString *callbackId = command.callbackId;
     NSString *tweetText = [options objectForKey:@"text"];
     NSString *urlAttach = [options objectForKey:@"urlAttach"];
     NSString *imageAttach = [options objectForKey:@"imageAttach"];
@@ -109,8 +104,8 @@
     }
 }
 
-- (void) getPublicTimeline:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
-    NSString *callbackId = [arguments objectAtIndex:0];
+- (void) getPublicTimeline:(CDVInvokedUrlCommand*)command {
+    NSString *callbackId = command.callbackId;
     NSString *url = [NSString stringWithFormat:@"%@statuses/public_timeline.json", TWITTER_URL];
     
     TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:url] parameters:nil requestMethod:TWRequestMethodGET];
@@ -132,8 +127,8 @@
 	}];
 }
 
-- (void) getTwitterUsername:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
-    NSString *callbackId = [arguments objectAtIndex:0];
+- (void) getTwitterUsername:(CDVInvokedUrlCommand*)command {
+    NSString *callbackId = command.callbackId;
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
@@ -152,8 +147,8 @@
 
 }
 
-- (void) getMentions:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
-    NSString *callbackId = [arguments objectAtIndex:0];
+- (void) getMentions:(CDVInvokedUrlCommand*)command {
+    NSString *callbackId = command.callbackId;
     NSString *url = [NSString stringWithFormat:@"%@statuses/mentions.json", TWITTER_URL];
     
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
@@ -200,8 +195,9 @@
 
 
 
-- (void) getTWRequest:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
-    NSString *callbackId = [arguments objectAtIndex:0];
+- (void) getTWRequest:(CDVInvokedUrlCommand*)command {
+    NSString *callbackId = command.callbackId;
+    NSMutableDictionary* options = (NSMutableDictionary*)[command argumentAtIndex:0];
     NSString *urlSlug = [options objectForKey:@"url"];
     NSString *url = [NSString stringWithFormat:@"%@%@", TWITTER_URL, urlSlug];
     
