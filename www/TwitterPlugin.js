@@ -1,7 +1,7 @@
 /**
  * @constructor
  */
-var Twitter = function(){};
+var Twitter = function() {};
 /**
  * Checks if the Twitter SDK is loaded
  * @param {Function} response callback on result
@@ -128,13 +128,12 @@ Twitter.prototype.getTWRequest = function(url, params, success, failure, options
 };
 // Plug in to Cordova
 cordova.addConstructor(function() {
-					   
-					   /* shim to work in 1.5 and 1.6  */
-						if (!window.Cordova) {
-						window.Cordova = cordova;
-						};
-						
-					   
-					   if(!window.plugins) window.plugins = {};
-					   window.plugins.twitter = new Twitter();
-					   });
+    if (!window.Cordova) {
+        window.Cordova = cordova;
+    };
+
+
+    if(!window.plugins)
+        window.plugins = {};
+    window.plugins.twitter = new Twitter();
+});
