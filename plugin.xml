@@ -2,13 +2,14 @@
 <plugin 
     xmlns="http://www.phonegap.com/ns/plugins/1.0" 
     xmlns:android="http://schemas.android.com/apk/res/android" 
-    id="com.megster.cordova.TwitterPlugin" 
+    id="com.megster.cordova.twitterplugin" 
     version="0.0.0">
     
     <name>SMS Composer</name>
     
-    <!-- TODO js-module -->
-    <asset src="www/TwitterPlugin.js" target="js/TwitterPlugin.js"/>
+    <js-module src="www/TwitterPlugin.js" name="TwitterPlugin">
+        <clobbers target="TwitterPlugin" />
+    </js-module>
 
     <engines>
         <engine name="cordova" version=">=3.0.0" />
